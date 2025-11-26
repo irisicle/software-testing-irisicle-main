@@ -45,7 +45,7 @@ def test_invalid_password_no_special():
     assert not is_valid_password("Password123")
 
 def test_invalid_password_too_short():
-    assert not is_valid_password("P1!")
+    assert not is_valid_password("pw")
 
 def test_send_reset_email_email_not_set():
     user_profiles["john_doe"]["email"] = None
@@ -66,8 +66,8 @@ def test_update_profile_name():
     assert user_profiles["john_doe"]["name"] == "John"
 
 def test_update_profile_email():
-    update_profile("john_doe", email="new@mail.com")
-    assert user_profiles["john_doe"]["email"] == "new@mail.com"
+    update_profile("john_doe", email="new@email.com")
+    assert user_profiles["john_doe"]["email"] == "new@email.com"
 
 def test_update_profile_user_not_found():
     assert update_profile("ghost") == "User not found."

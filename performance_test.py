@@ -1,5 +1,4 @@
 import pytest
-from unittest.mock import patch
 from auth_system import *
 
 @pytest.fixture(autouse=True)
@@ -16,9 +15,7 @@ def reset_state():
         "jane_doe": {"name": "Jane", "email": "jane@example.com", "last_login": None}
     })
 
-@patch("your_module.random.uniform", return_value=0)
-@patch("your_module.time.sleep", return_value=None)
-def test_login_performance(mock_sleep, mock_rand, benchmark):
+def test_login_performance(benchmark):
     def run():
         login("john_doe", "Secure123!")
 
@@ -26,19 +23,17 @@ def test_login_performance(mock_sleep, mock_rand, benchmark):
 
 def test_signup_performance(benchmark):
     def run():
-        signup("user_" + str(len(user_db)), "Strong1@A")
+        signup("user_" + str(len(user_db)), "StrongPw1@A&!")
 
     benchmark(run)
 
 def test_update_profile_performance(benchmark):
     def run():
-        update_profile("john_doe", name="Johnny", email="john@new.com")
+        update_profile("john_doe", name="John", email="john@new.com")
 
     benchmark(run)
 
-@patch("your_module.random.uniform", return_value=0)
-@patch("your_module.time.sleep", return_value=None)
-def test_bulk_login_stress(mock_sleep, mock_rand, benchmark):
+def test_bulk_login_stress(benchmark):
     def run():
         for _ in range(100):
             login("john_doe", "Secure123!")
