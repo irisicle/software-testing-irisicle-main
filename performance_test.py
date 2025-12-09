@@ -1,4 +1,5 @@
 import pytest
+import pytest_benchmark
 from auth_system import *
 
 @pytest.fixture(autouse=True)
