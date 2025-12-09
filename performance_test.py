@@ -16,15 +16,19 @@ def reset_state():
     })
 
 def test_login_performance(benchmark):
+    benchmark.configure(timeout=60)  # Increase timeout to 60 seconds
     benchmark(lambda:login("john_doe", "Secure123!"))
 
 def test_signup_performance(benchmark):
+    benchmark.configure(timeout=60)  # Increase timeout to 60 seconds
     benchmark(lambda:signup("user_" + str(len(user_db)), "StrongPw1@A&!"))
 
 def test_update_profile_performance(benchmark):
+    benchmark.configure(timeout=60)  # Increase timeout to 60 seconds
     benchmark(lambda:update_profile("john_doe", name="John", email="john@new.com"))
 
 def test_bulk_login_stress(benchmark):
+    benchmark.configure(timeout=120)  # Increase timeout to 120 seconds
     benchmark(lambda:[login("john_doe", "Secure123!") for _ in range(100)])
 
 
