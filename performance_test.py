@@ -1,5 +1,4 @@
 import pytest
-import pytest_benchmark
 from auth_system import *
 
 @pytest.fixture(autouse=True)
@@ -17,28 +16,15 @@ def reset_state():
     })
 
 def test_login_performance(benchmark):
-    def run():
-        login("john_doe", "Secure123!")
-
-    benchmark(run)
+    benchmark(lambda:login("john_doe", "Secure123!"))
 
 def test_signup_performance(benchmark):
-    def run():
-        signup("user_" + str(len(user_db)), "StrongPw1@A&!")
-
-    benchmark(run)
+    benchmark(lambda:signup("user_" + str(len(user_db)), "StrongPw1@A&!"))
 
 def test_update_profile_performance(benchmark):
-    def run():
-        update_profile("john_doe", name="John", email="john@new.com")
-
-    benchmark(run)
+    benchmark(lambda:update_profile("john_doe", name="John", email="john@new.com"))
 
 def test_bulk_login_stress(benchmark):
-    def run():
-        for _ in range(100):
-            login("john_doe", "Secure123!")
-
-    benchmark(run)
+    benchmark(lambda:[login("john_doe", "Secure123!") for _ in range(100)])
 
 
